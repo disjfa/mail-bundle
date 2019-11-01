@@ -1,0 +1,20 @@
+{
+    "name": "disjfa/mail-bundle",
+    "description": "Mail bundle for symfony, can also be use in glynn-admin-symfony",
+    "keywords": [
+        "mail"
+    ],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "disjfa",
+            "email": "disjfa@disjfa.nl"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Disjfa\\MailBundle\\": ""
+        }
+    }
+}

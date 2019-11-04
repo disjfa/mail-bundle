@@ -1,0 +1,26 @@
+{% extends "@DisjfaMail/layout.html.twig" %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Subject</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for mail in mailCollection %}
+            <tr>
+                <td>{{ mail.name }}</td>
+                <td>{{ mail.subject }}</td>
+                <td>
+                    <a href="{{ path('disjfa_mail_admin_mail_edit', {'name': mail.name }) }}">
+                        edit
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

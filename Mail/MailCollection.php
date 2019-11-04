@@ -2,6 +2,8 @@
 
 namespace Disjfa\MailBundle\Mail;
 
+use InvalidArgumentException;
+
 class MailCollection
 {
     /**
@@ -23,5 +25,21 @@ class MailCollection
     public function getMails()
     {
         return $this->mails;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return MailInterface
+     */
+    public function findByName(string $name)
+    {
+        foreach ($this->mails as $mail) {
+            if ($mail->getName() === $name) {
+                return $mail;
+            }
+        }
+
+        throw new InvalidArgumentException('No email found');
     }
 }

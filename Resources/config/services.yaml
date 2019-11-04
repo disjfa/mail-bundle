@@ -11,10 +11,6 @@ services:
         resource: '../../Controller'
         tags: ['controller.service_arguments']
 
-    _instanceof:
-        Disjfa\MailBundle\Mail\MailInterface:
-            tags: ['disjfa.mail']
-
     Disjfa\MailBundle\Mail\MailCollection:
         arguments:
             - !tagged disjfa.mail

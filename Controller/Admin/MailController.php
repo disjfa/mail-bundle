@@ -44,7 +44,6 @@ class MailController extends AbstractController
     public function edit(string $name, Mail $mail, Request $request)
     {
         $mail = $mail->findByName($name);
-        dump($mail->getParameters());
 
         $form = $this->createForm(MailTemplateType::class, $mail->getEntity());
         $form->handleRequest($request);

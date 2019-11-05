@@ -38,6 +38,7 @@ class Mail
 
     /**
      * @param string $name
+     *
      * @return Mail
      */
     public function findByName(string $name)
@@ -81,6 +82,22 @@ class Mail
     }
 
     /**
+     * @return string
+     */
+    public function getOriginalSubject()
+    {
+        return $this->mail->getSubject();
+    }
+
+    /**
+     * @return string
+     */
+    public function getOriginalContent()
+    {
+        return $this->mail->getContent();
+    }
+
+    /**
      * @return MailTemplate
      *
      * @throws Exception
@@ -92,5 +109,16 @@ class Mail
         }
 
         return new MailTemplate($this->mail->getName(), $this->mail->getSubject(), $this->mail->getContent());
+    }
+
+    /**
+     * @return array
+     */
+    public function getParameters()
+    {
+        preg_match_all("/{{\s*(\w+)\s*}}/", $this->getOriginalContent(), $body);
+        preg_match_all("/{{\s*(\w+)\s*}}/", $this->getOriginalSubject(), $subject);
+
+        return array_unique(array_merge($subject[1], $body[1]));
     }
 }

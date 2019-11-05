@@ -6,3 +6,62 @@
         </columns>
     </row>
 </container>
+
+<spacer size="16"></spacer>
+
+<wrapper class="header" bgcolor="#8a8a8a">
+    <container>
+        <row class="collapse">
+            <columns small="6" valign="middle">
+                <img src="http://placehold.it/200x50/663399">
+            </columns>
+            <columns small="6" valign="middle">
+                <p class="text-right">Sidebar</p>
+            </columns>
+        </row>
+    </container>
+</wrapper>
+
+<container>
+
+    <spacer size="16"></spacer>
+
+    <row>
+        <columns large="7">
+            <h2>Hello, {{ '{{' }} email {{ '}}' }}</h2>
+            <p>{{ '{{' }}description{{ '}}' }}</p>
+            <button class="expand" href="#">Click Me!</button>
+        </columns>
+        <columns large="5" class="sidebar">
+            <callout class="secondary">
+                <h5>Header</h5>
+                <p class="lead">Sub-header</p>
+                <p><a href="#">Just a Plain Link &raquo;</a></p>
+                <p><a href="#">Just a Plain Link &raquo;</a></p>
+                <p><a href="#">Just a Plain Link &raquo;</a></p>
+                <p><a href="#">Just a Plain Link &raquo;</a></p>
+                <p><a href="#">Just a Plain Link &raquo;</a></p>
+            </callout>
+            <callout class="secondary">
+                <h6>CONNECT WITH US:</h6>
+                <button class="facebook expand" href="#">Facebook</button>
+                <button class="twitter expand" href="#">Twitter</button>
+                <button class="google expand" href="#">Google+</button>
+                <p>CONTACT INFO:</p>
+                <p>Phone: 408-341-0600</p>
+                <p>Email: <a href="mailto:foundation@zurb.com">foundation@zurb.com</a></p>
+            </callout>
+        </columns>
+    </row>
+    <row>
+        <columns>
+            <center>
+                <menu>
+                    <item href="#">Terms</item>
+                    <item href="#">Privacy</item>
+                    <item href="#">Unsubscribe</item>
+                </menu>
+            </center>
+        </columns>
+    </row>
+</container>

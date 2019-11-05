@@ -1,0 +1,3 @@
+{% apply inky_to_html|inline_css(source('@DisjfaMail/css/foundation-emails.css')) %}
+    {{ content | raw }}
+{% endapply %}

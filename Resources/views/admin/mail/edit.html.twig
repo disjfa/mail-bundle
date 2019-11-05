@@ -1,0 +1,51 @@
+{% extends "@DisjfaMail/layout.html.twig" %}
+
+{% block body %}
+    <div class="py-3">
+        <a href="{{ path('disjfa_mail_admin_mail_index') }}">&laquo; back</a>
+        -
+        <a href="{{ path('disjfa_mail_admin_mail_preview', {'name': mail.name}) }}" accesskey="p" target="_blank">preview</a>
+    </div>
+    {{ form_start(form) }}
+    {{ form_rest(form) }}
+    <button type="submit" accesskey="s" class="btn btn-primary">save</button>
+    {{ form_end(form) }}
+    <br>
+    <h3>Original content</h3>
+    <strong>{{ mail.originalSubject }}</strong>
+    <pre><code>{{ mail.originalContent }}</code></pre>
+    <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var areas = document.getElementsByTagName('textarea');
+      for (var i = 0; i < areas.length; i++) {
+        autoExpand(areas[i]);
+      }
+    });
+
+    document.addEventListener('input', function (event) {
+      if (event.target.tagName.toLowerCase() !== 'textarea') return;
+      autoExpand(event.target);
+    }, false);
+
+    var autoExpand = function (field) {
+
+      // Reset field height
+      field.style.height = 'inherit';
+
+      // Get the computed styles for the element
+      var computed = window.getComputedStyle(field);
+
+      // Calculate the height
+      var height = parseInt(computed.getPropertyValue('border-top-width'), 10)
+        + parseInt(computed.getPropertyValue('padding-top'), 10)
+        + field.scrollHeight
+        + parseInt(computed.getPropertyValue('padding-bottom'), 10)
+        + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
+
+      field.style.height = height + 'px';
+
+    };
+
+    </script>
+{% endblock %}

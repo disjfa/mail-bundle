@@ -37,7 +37,7 @@ class ExampleMail implements MailInterface
      */
     public function getSubject()
     {
-        return 'Example subject';
+        return 'Example {{subject}}';
     }
 
     /**

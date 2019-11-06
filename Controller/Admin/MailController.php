@@ -5,11 +5,15 @@ namespace Disjfa\MailBundle\Controller\Admin;
 use Disjfa\MailBundle\Form\Type\MailTemplateType;
 use Disjfa\MailBundle\Mail\Mail;
 use Disjfa\MailBundle\Mail\MailCollection;
-use Exception;
+use Disjfa\MailBundle\Mail\MailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 /**
  * @Route("/admin/mail")
@@ -33,30 +37,42 @@ class MailController extends AbstractController
     /**
      * @Route("/{name}/edit", name="disjfa_mail_admin_mail_edit")
      *
-     * @param string  $name
-     * @param Mail    $mail
-     * @param Request $request
+     * @param string      $name
+     * @param Mail        $mail
+     * @param Request     $request
+     * @param MailService $mailService
      *
      * @return Response
      *
-     * @throws Exception
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
-    public function edit(string $name, Mail $mail, Request $request)
+    public function edit(string $name, Mail $mail, Request $request, MailService $mailService)
     {
         $mail = $mail->findByName($name);
 
         $form = $this->createForm(MailTemplateType::class, $mail->getEntity());
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($form->getData());
-            $em->flush();
 
-            $this->addFlash('success', 'Mail template saved');
+        if ($form->isSubmitted()) {
+            try {
+                $mailService->create($mail, []);
+            } catch (RuntimeError $error) {
+                $form->addError(new FormError($error->getMessage()));
+            }
 
-            return $this->redirectToRoute('disjfa_mail_admin_mail_edit', [
-                'name' => $mail->getName(),
-            ]);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($form->getData());
+                $em->flush();
+
+                $this->addFlash('success', 'Mail template saved');
+
+                return $this->redirectToRoute('disjfa_mail_admin_mail_edit', [
+                    'name' => $mail->getName(),
+                ]);
+            }
         }
 
         return $this->render('@DisjfaMail/admin/mail/edit.html.twig', [
@@ -68,19 +84,37 @@ class MailController extends AbstractController
     /**
      * @Route("/{name}/preview", name="disjfa_mail_admin_mail_preview")
      *
-     * @param string $name
-     * @param Mail   $mail
+     * @param string      $name
+     * @param Mail        $mail
+     * @param Request     $request
+     * @param MailService $mailService
      *
      * @return Response
      *
-     * @throws Exception
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
-    public function preview(string $name, Mail $mail)
+    public function preview(string $name, Mail $mail, Request $request, MailService $mailService)
     {
         $mail = $mail->findByName($name);
 
-        return $this->render('@DisjfaMail/mail/email.html.twig', [
-            'content' => $mail->getContent(),
-        ]);
+        $form = $this->createForm(MailTemplateType::class, $mail->getEntity());
+        $form->handleRequest($request);
+
+        $parameters = $mail->getParameters();
+        $parameters = array_fill_keys($parameters, '');
+        array_walk($parameters, function (&$item, $key) {
+            $item = '##'.$key.'##';
+        });
+        try {
+            $email = $mailService->create($mail, $parameters);
+
+            return new Response($email->getHtmlBody());
+        } catch (RuntimeError $error) {
+            return $this->render('@DisjfaMail/admin/mail/error.html.twig', [
+                'error' => $error,
+            ]);
+        }
     }
 }

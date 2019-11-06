@@ -4,11 +4,40 @@
     <div class="py-3">
         <a href="{{ path('disjfa_mail_admin_mail_index') }}">&laquo; back</a>
         -
-        <a href="{{ path('disjfa_mail_admin_mail_preview', {'name': mail.name}) }}" accesskey="p" target="_blank">preview</a>
+        <a href="{{ path('disjfa_mail_admin_mail_preview', {'name': mail.name}) }}" accesskey="p" target="_blank">
+            preview changes
+        </a>
     </div>
     {{ form_start(form) }}
-    {{ form_rest(form) }}
-    <button type="submit" accesskey="s" class="btn btn-primary">save</button>
+    <div class="row">
+        <div class="col-12 col-lg-9 py-2">
+            <h4>Mail template</h4>
+            {{ form_errors(form) }}
+            {{ form_rest(form) }}
+            <button type="submit" accesskey="s" class="btn btn-primary">
+                save
+            </button>
+            <button type="submit" accesskey="d" class="btn btn-primary" formtarget="_blank" formaction="{{ path('disjfa_mail_admin_mail_preview', {'name': mail.name}) }}">
+                preview
+            </button>
+        </div>
+        <div class="col-12 col-lg-3 py-2">
+            <h4>Mail parameters</h4>
+            {% for parameter in mail.parameters %}
+                <div class="form-group">
+                    <label for="">{{ parameter }}</label>
+                    <div class="input-group mb-3">
+                        <input type="text" value="{{ '{{ ' }}{{ parameter }}{{ ' }}' }}" id="input-{{ parameter }}" class="form-control disabled">
+                        <div class="input-group-append">
+                            <button type="button" class="btn js-copy btn-outline-primary" data-clipboard-target="#input-{{ parameter }}">
+                                copy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
     {{ form_end(form) }}
     <br>
     <h3>Original content</h3>
@@ -28,24 +57,13 @@
       autoExpand(event.target);
     }, false);
 
-    var autoExpand = function (field) {
-
-      // Reset field height
-      field.style.height = 'inherit';
-
-      // Get the computed styles for the element
-      var computed = window.getComputedStyle(field);
-
-      // Calculate the height
-      var height = parseInt(computed.getPropertyValue('border-top-width'), 10)
-        + parseInt(computed.getPropertyValue('padding-top'), 10)
-        + field.scrollHeight
-        + parseInt(computed.getPropertyValue('padding-bottom'), 10)
-        + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
-
-      field.style.height = height + 'px';
-
+    var autoExpand = function (textField) {
+      if (textField.clientHeight < textField.scrollHeight) {
+        textField.style.height = textField.scrollHeight + "px";
+        if (textField.clientHeight < textField.scrollHeight) {
+          textField.style.height = (textField.scrollHeight * 2 - textField.clientHeight) + "px";
+        }
+      }
     };
-
     </script>
 {% endblock %}

@@ -14,8 +14,6 @@ class EmailWasSent
 
     /**
      * EmailWasSent constructor.
-     *
-     * @param Email $email
      */
     public function __construct(Email $email)
     {

@@ -28,8 +28,6 @@ class MailCollection
     }
 
     /**
-     * @param string $name
-     *
      * @return MailInterface
      */
     public function findByName(string $name)

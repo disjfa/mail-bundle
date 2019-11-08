@@ -31,10 +31,6 @@ class MailService
 
     /**
      * MailService constructor.
-     *
-     * @param Environment              $twig
-     * @param MailerInterface          $mailer
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(Environment $twig, MailerInterface $mailer, EventDispatcherInterface $eventDispatcher)
     {
@@ -44,9 +40,6 @@ class MailService
     }
 
     /**
-     * @param Mail  $mail
-     * @param array $parameters
-     *
      * @return Email
      *
      * @throws LoaderError
@@ -74,8 +67,6 @@ class MailService
     }
 
     /**
-     * @param Mail                        $mail
-     * @param array                       $parameters
      * @param Address|NamedAddress|string ...$addresses
      *
      * @throws LoaderError

@@ -6,6 +6,11 @@
     ],
     "type": "symfony-bundle",
     "license": "MIT",
+    "homepage": "https://github.com/disjfa/mail-bundle",
+    "support": {
+        "issues": "https://github.com/disjfa/mail-bundle/issues",
+        "source": "https://github.com/disjfa/mail-bundle"
+    },
     "authors": [
         {
             "name": "disjfa",

@@ -2,7 +2,6 @@
 
 namespace Disjfa\MailBundle\Mail;
 
-use Disjfa\EnqueueBundle\Repository\MailTemplateRepository;
 use Disjfa\MailBundle\Entity\MailTemplate;
 use Exception;
 
@@ -17,50 +16,22 @@ class Mail
      * @var MailTemplate|null
      */
     private $entity;
-    /**
-     * @var MailCollection
-     */
-    private $mailCollection;
-    /**
-     * @var MailTemplateRepository
-     */
-    private $mailTemplateRepository;
 
     /**
-     * @param MailCollection         $mailCollection
-     * @param MailTemplateRepository $mailTemplateRepository
+     * @param MailTemplate $mailTemplate
      */
-    public function __construct(MailCollection $mailCollection, MailTemplateRepository $mailTemplateRepository)
+    public function __construct(MailInterface $mail, MailTemplate $mailTemplate = null)
     {
-        $this->mailCollection = $mailCollection;
-        $this->mailTemplateRepository = $mailTemplateRepository;
+        $this->mail = $mail;
+        $this->entity = $mailTemplate;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return Mail
-     */
-    public function findByName(string $name)
-    {
-        $this->mail = $this->mailCollection->findByName($name);
-        $this->entity = $this->mailTemplateRepository->findOneByName($name);
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->mail->getName();
     }
 
-    /**
-     * @return string
-     */
-    public function getSubject()
+    public function getSubject(): string
     {
         if ($this->entity instanceof MailTemplate) {
             return $this->entity->getSubject();
@@ -69,10 +40,7 @@ class Mail
         return $this->mail->getSubject();
     }
 
-    /**
-     * @return string
-     */
-    public function getContent()
+    public function getContent(): string
     {
         if ($this->entity instanceof MailTemplate) {
             return $this->entity->getContent();
@@ -81,25 +49,17 @@ class Mail
         return $this->mail->getContent();
     }
 
-    /**
-     * @return string
-     */
-    public function getOriginalSubject()
+    public function getOriginalSubject(): string
     {
         return $this->mail->getSubject();
     }
 
-    /**
-     * @return string
-     */
-    public function getOriginalContent()
+    public function getOriginalContent(): string
     {
         return $this->mail->getContent();
     }
 
     /**
-     * @return MailTemplate
-     *
      * @throws Exception
      */
     public function getEntity(): MailTemplate
@@ -111,10 +71,7 @@ class Mail
         return new MailTemplate($this->mail->getName(), $this->mail->getSubject(), $this->mail->getContent());
     }
 
-    /**
-     * @return array
-     */
-    public function getParameters()
+    public function getParameters(): array
     {
         preg_match_all("/{{\s*(\w+)\s*}}/", $this->getOriginalContent(), $body);
         preg_match_all("/{{\s*(\w+)\s*}}/", $this->getOriginalSubject(), $subject);

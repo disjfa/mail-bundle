@@ -2,9 +2,9 @@
 
 {% block body %}
     <div class="py-3">
-        <a href="{{ path('disjfa_mail_admin_mail_index') }}">&laquo; back</a>
+        <a href="{{ path('disjfa_mail_template_index') }}">&laquo; back</a>
         -
-        <a href="{{ path('disjfa_mail_admin_mail_preview', {'name': mail.name}) }}" accesskey="p" target="_blank">
+        <a href="{{ path('disjfa_mail_template_preview', {'name': mail.name}) }}" accesskey="p" target="_blank">
             preview changes
         </a>
     </div>
@@ -17,7 +17,7 @@
             <button type="submit" accesskey="s" class="btn btn-primary">
                 save
             </button>
-            <button type="submit" accesskey="d" class="btn btn-primary" formtarget="_blank" formaction="{{ path('disjfa_mail_admin_mail_preview', {'name': mail.name}) }}">
+            <button type="submit" accesskey="d" class="btn btn-primary" formtarget="_blank" formaction="{{ path('disjfa_mail_template_preview', {'name': mail.name}) }}">
                 preview
             </button>
         </div>
@@ -41,7 +41,9 @@
     {{ form_end(form) }}
     <br>
     <h3>Original content</h3>
+    <br>
     <strong>{{ mail.originalSubject }}</strong>
+    <hr>
     <pre><code>{{ mail.originalContent }}</code></pre>
     <script>
 

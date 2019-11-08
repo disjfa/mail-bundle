@@ -1,10 +1,11 @@
 <?php
 
-namespace Disjfa\MailBundle\Controller\Admin;
+namespace Disjfa\MailBundle\Controller;
 
 use Disjfa\MailBundle\Form\Type\MailTemplateType;
 use Disjfa\MailBundle\Mail\Mail;
 use Disjfa\MailBundle\Mail\MailCollection;
+use Disjfa\MailBundle\Mail\MailFactory;
 use Disjfa\MailBundle\Mail\MailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
@@ -16,41 +17,33 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
 /**
- * @Route("/admin/mail")
+ * @Route("/mail-template")
  */
-class MailController extends AbstractController
+class MailTemplateController extends AbstractController
 {
     /**
-     * @Route("/", name="disjfa_mail_admin_mail_index")
-     *
-     * @param MailCollection $mailCollection
+     * @Route("/", name="disjfa_mail_template_index")
      *
      * @return Response
      */
     public function index(MailCollection $mailCollection)
     {
-        return $this->render('@DisjfaMail/admin/mail/index.html.twig', [
+        return $this->render('@DisjfaMail/mail-template/index.html.twig', [
             'mailCollection' => $mailCollection->getMails(),
         ]);
     }
 
     /**
-     * @Route("/{name}/edit", name="disjfa_mail_admin_mail_edit")
-     *
-     * @param string      $name
-     * @param Mail        $mail
-     * @param Request     $request
-     * @param MailService $mailService
+     * @Route("/{name}/edit", name="disjfa_mail_template_edit")
      *
      * @return Response
      *
      * @throws LoaderError
-     * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function edit(string $name, Mail $mail, Request $request, MailService $mailService)
+    public function edit(string $name, MailFactory $mailFactory, Request $request, MailService $mailService)
     {
-        $mail = $mail->findByName($name);
+        $mail = $mailFactory->findByName($name);
 
         $form = $this->createForm(MailTemplateType::class, $mail->getEntity());
         $form->handleRequest($request);
@@ -69,35 +62,29 @@ class MailController extends AbstractController
 
                 $this->addFlash('success', 'Mail template saved');
 
-                return $this->redirectToRoute('disjfa_mail_admin_mail_edit', [
+                return $this->redirectToRoute('disjfa_mail_template_edit', [
                     'name' => $mail->getName(),
                 ]);
             }
         }
 
-        return $this->render('@DisjfaMail/admin/mail/edit.html.twig', [
+        return $this->render('@DisjfaMail/mail-template/edit.html.twig', [
             'form' => $form->createView(),
             'mail' => $mail,
         ]);
     }
 
     /**
-     * @Route("/{name}/preview", name="disjfa_mail_admin_mail_preview")
-     *
-     * @param string      $name
-     * @param Mail        $mail
-     * @param Request     $request
-     * @param MailService $mailService
+     * @Route("/{name}/preview", name="disjfa_mail_template_preview")
      *
      * @return Response
      *
      * @throws LoaderError
-     * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function preview(string $name, Mail $mail, Request $request, MailService $mailService)
+    public function preview(string $name, MailFactory $mailFactory, Request $request, MailService $mailService)
     {
-        $mail = $mail->findByName($name);
+        $mail = $mailFactory->findByName($name);
 
         $form = $this->createForm(MailTemplateType::class, $mail->getEntity());
         $form->handleRequest($request);
@@ -105,14 +92,15 @@ class MailController extends AbstractController
         $parameters = $mail->getParameters();
         $parameters = array_fill_keys($parameters, '');
         array_walk($parameters, function (&$item, $key) {
-            $item = '##'.$key.'##';
+            $item = '## '.$key.' ##';
         });
+
         try {
             $email = $mailService->create($mail, $parameters);
 
             return new Response($email->getHtmlBody());
         } catch (RuntimeError $error) {
-            return $this->render('@DisjfaMail/admin/mail/error.html.twig', [
+            return $this->render('@DisjfaMail/mail-template/error.html.twig', [
                 'error' => $error,
             ]);
         }

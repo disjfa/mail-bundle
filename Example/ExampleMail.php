@@ -16,9 +16,6 @@ class ExampleMail implements MailInterface
      */
     private $environment;
 
-    /**
-     * @param Environment $environment
-     */
     public function __construct(Environment $environment)
     {
         $this->environment = $environment;

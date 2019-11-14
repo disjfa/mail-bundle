@@ -2,7 +2,11 @@
     "name": "disjfa/mail-bundle",
     "description": "Mail bundle for symfony, can also be use in glynn-admin-symfony",
     "keywords": [
-        "mail"
+        "mail",
+        "symfony bundle",
+        "symfony",
+        "email template",
+        "inky"
     ],
     "type": "symfony-bundle",
     "license": "MIT",
@@ -21,5 +25,14 @@
         "psr-4": {
             "Disjfa\\MailBundle\\": ""
         }
+    },
+    "require": {
+        "symfony/mailer": "^4.0",
+        "symfony/mime": "^4.0",
+        "symfony/orm-pack": "^1.0",
+        "symfony/twig-bundle": "^4.0",
+        "twig/cssinliner-extra": "^2.12",
+        "twig/extra-bundle": "^2.12",
+        "twig/inky-extra": "^2.12"
     }
 }

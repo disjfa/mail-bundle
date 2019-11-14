@@ -32,6 +32,7 @@
         "symfony/mailer": "^4|^5",
         "symfony/mime": "^4|^5",
         "symfony/orm-pack": "^1.0",
+        "symfony/translation": "^4|^5",
         "symfony/twig-bundle": "^4|^5",
         "symfony/validator": "^4|^5",
         "twig/cssinliner-extra": "^2.12",

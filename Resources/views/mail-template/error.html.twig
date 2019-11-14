@@ -1,7 +1,13 @@
 {% extends "@DisjfaMail/layout.html.twig" %}
 
+{% trans_default_domain 'disjfa-mail' %}
+
+{% block page_title %}
+    {{ 'title.error' | trans }}
+{% endblock %}
+
 {% block body %}
-    <h4>Could not render preview</h4>
+    <h4>{{ 'title.error' | trans }}</h4>
     <div class="alert alert-danger">
         {{ error.message }}
     </div>

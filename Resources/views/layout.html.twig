@@ -1,3 +1,5 @@
+{% trans_default_domain "disjfa-mail" %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,12 +7,12 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Disjfa mailer</title>
+    <title>{% block page_title %}{{ 'title.disjfa-mail' | trans }}{% endblock %}</title>
 </head>
 <body>
 <div class="container">
     <br>
-    <h1>Disjfa mailer</h1>
+    <h1>{{ 'title.disjfa-mail' | trans }}</h1>
     <br>
     {% for type, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}

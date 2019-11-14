@@ -15,9 +15,11 @@ class MailTemplateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('subject', TextType::class, [
+            'label' => 'label.subject',
             'constraints' => new NotBlank(),
         ]);
         $builder->add('content', TextareaType::class, [
+            'label' => 'label.content',
             'constraints' => new NotBlank(),
         ]);
     }
@@ -26,6 +28,7 @@ class MailTemplateType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => MailTemplate::class,
+            'translation_domain' => 'disjfa-mail',
         ]);
     }
 }

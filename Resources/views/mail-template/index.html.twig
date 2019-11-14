@@ -1,11 +1,13 @@
 {% extends "@DisjfaMail/layout.html.twig" %}
 
+{% trans_default_domain 'disjfa-mail' %}
+
 {% block body %}
     <table class="table">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Subject</th>
+            <th>{{ 'table.name' | trans }}</th>
+            <th>{{ 'table.subject' | trans }}</th>
             <th></th>
         </tr>
         </thead>
@@ -16,7 +18,11 @@
                 <td>{{ mail.subject }}</td>
                 <td>
                     <a href="{{ path('disjfa_mail_template_edit', {'name': mail.name }) }}">
-                        edit
+                        {{ 'button.edit' | trans }}
+                    </a>
+                    -
+                    <a href="{{ path('disjfa_mail_template_preview', {'name': mail.name }) }}" target="_blank">
+                        {{ 'button.preview' | trans }}
                     </a>
                 </td>
             </tr>

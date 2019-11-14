@@ -1,0 +1,29 @@
+button:
+    back: 'back'
+    preview-changes: 'preview changes'
+    save: 'save'
+    preview: 'preview'
+    copy: 'copy'
+    edit: 'edit'
+
+text:
+    help: 'Checkout the <a href="https://foundation.zurb.com/emails.html" target="_blank">Foundation for Emails</a> to see what you can make.'
+
+title:
+    mail-template: 'Mail template'
+    mail-parameters: 'Mail parameters'
+    original-content: 'Original content'
+    disjfa-mail: 'disjfa mail'
+    error: 'Could not render preview'
+
+label:
+    subject: 'Subject'
+    content: 'Content'
+
+table:
+    name: 'Name'
+    subject: 'Subject'
+
+example:
+    subject: 'Example {{subject}}'
+    footer: 'This is the footer'

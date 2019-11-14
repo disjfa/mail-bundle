@@ -1,28 +1,38 @@
 {% extends "@DisjfaMail/layout.html.twig" %}
 
+{% trans_default_domain "disjfa-mail" %}
+
+{% block page_title %}
+    {{ 'title.mail-template' | trans }}
+{% endblock %}
+
 {% block body %}
     <div class="py-3">
-        <a href="{{ path('disjfa_mail_template_index') }}">&laquo; back</a>
+        <a href="{{ path('disjfa_mail_template_index') }}">{{ 'button.back' | trans }}</a>
         -
         <a href="{{ path('disjfa_mail_template_preview', {'name': mail.name}) }}" accesskey="p" target="_blank">
-            preview changes
+            {{ 'button.preview-changes' | trans }}
         </a>
     </div>
+    <p>
+        {{ 'text.help' | trans | raw }}
+    </p>
+    <hr>
     {{ form_start(form) }}
     <div class="row">
         <div class="col-12 col-lg-9 py-2">
-            <h4>Mail template</h4>
+            <h4>{{ 'title.mail-template' | trans }}</h4>
             {{ form_errors(form) }}
             {{ form_rest(form) }}
             <button type="submit" accesskey="s" class="btn btn-primary">
-                save
+                {{ 'button.save' | trans }}
             </button>
             <button type="submit" accesskey="d" class="btn btn-primary" formtarget="_blank" formaction="{{ path('disjfa_mail_template_preview', {'name': mail.name}) }}">
-                preview
+                {{ 'button.preview' | trans }}
             </button>
         </div>
         <div class="col-12 col-lg-3 py-2">
-            <h4>Mail parameters</h4>
+            <h4>{{ 'title.mail-parameters' | trans }}</h4>
             {% for parameter in mail.parameters %}
                 <div class="form-group">
                     <label for="">{{ parameter }}</label>
@@ -30,7 +40,7 @@
                         <input type="text" value="{{ '{{ ' }}{{ parameter }}{{ ' }}' }}" id="input-{{ parameter }}" class="form-control disabled">
                         <div class="input-group-append">
                             <button type="button" class="btn js-copy btn-outline-primary" data-clipboard-target="#input-{{ parameter }}">
-                                copy
+                                {{ 'button.copy' | trans }}
                             </button>
                         </div>
                     </div>
@@ -40,7 +50,7 @@
     </div>
     {{ form_end(form) }}
     <br>
-    <h3>Original content</h3>
+    <h3>{{ 'title.original-content' | trans }}</h3>
     <br>
     <strong>{{ mail.originalSubject }}</strong>
     <hr>

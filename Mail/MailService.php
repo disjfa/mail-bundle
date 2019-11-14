@@ -61,6 +61,7 @@ class MailService
         $email->subject($subject);
         $email->html($this->twig->render('@DisjfaMail/mail/email.html.twig', [
             'content' => $content,
+            'subject' => $subject,
         ]));
 
         return $email;

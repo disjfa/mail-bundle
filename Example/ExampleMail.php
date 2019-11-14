@@ -3,6 +3,7 @@
 namespace Disjfa\MailBundle\Example;
 
 use Disjfa\MailBundle\Mail\MailInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -15,10 +16,15 @@ class ExampleMail implements MailInterface
      * @var Environment
      */
     private $environment;
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
 
-    public function __construct(Environment $environment)
+    public function __construct(Environment $environment, TranslatorInterface $translator)
     {
         $this->environment = $environment;
+        $this->translator = $translator;
     }
 
     /**
@@ -34,7 +40,7 @@ class ExampleMail implements MailInterface
      */
     public function getSubject()
     {
-        return 'Example {{subject}}';
+        return $this->translator->trans('example.subject', [], 'disjfa-mail');
     }
 
     /**

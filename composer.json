@@ -27,10 +27,13 @@
         }
     },
     "require": {
-        "symfony/mailer": "^4.0",
-        "symfony/mime": "^4.0",
+        "ramsey/uuid": "^3",
+        "symfony/form": "^4|^5",
+        "symfony/mailer": "^4|^5",
+        "symfony/mime": "^4|^5",
         "symfony/orm-pack": "^1.0",
-        "symfony/twig-bundle": "^4.0",
+        "symfony/twig-bundle": "^4|^5",
+        "symfony/validator": "^4|^5",
         "twig/cssinliner-extra": "^2.12",
         "twig/extra-bundle": "^2.12",
         "twig/inky-extra": "^2.12"

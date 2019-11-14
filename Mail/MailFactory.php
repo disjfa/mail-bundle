@@ -2,7 +2,7 @@
 
 namespace Disjfa\MailBundle\Mail;
 
-use Disjfa\EnqueueBundle\Repository\MailTemplateRepository;
+use Disjfa\MailBundle\Repository\MailTemplateRepository;
 
 class MailFactory
 {

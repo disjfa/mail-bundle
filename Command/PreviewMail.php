@@ -32,9 +32,6 @@ class PreviewMail extends Command
 
     /**
      * PreviewMail constructor.
-     * @param MailCollection $mailCollection
-     * @param MailFactory $mailFactory
-     * @param MailService $mailService
      */
     public function __construct(MailCollection $mailCollection, MailFactory $mailFactory, MailService $mailService)
     {
@@ -45,9 +42,6 @@ class PreviewMail extends Command
         $this->mailService = $mailService;
     }
 
-    /**
-     *
-     */
     protected function configure()
     {
         $this
@@ -56,9 +50,8 @@ class PreviewMail extends Command
     }
 
     /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
      * @return int|void|null
+     *
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
@@ -88,8 +81,9 @@ class PreviewMail extends Command
         );
 
         $todo = $helper->ask($input, $output, $question);
-        if ($todo === 'preview') {
+        if ('preview' === $todo) {
             $output->write($mail->getContent());
+
             return;
         }
 
@@ -100,23 +94,25 @@ class PreviewMail extends Command
 
         $parameters = [];
         foreach ($mailParameters as $parameter) {
-            $question = new Question('Parameter: "' . $parameter . '"? ', '##' . $parameter . '##');
+            $question = new Question('Parameter: "'.$parameter.'"? ', '##'.$parameter.'##');
 
             $parameters[$parameter] = $helper->ask($input, $output, $question);
         }
 
-        if ($todo === 'preview raw') {
+        if ('preview raw' === $todo) {
             $email = $this->mailService->create($mail, $parameters);
             $output->write($email->getHtmlBody());
+
             return;
         }
 
-        if ($todo === 'send email') {
+        if ('send email' === $todo) {
             $question = new Question('Select email adress to send to? ');
             $to = $helper->ask($input, $output, $question);
 
             $this->mailService->send($mail, $parameters, $to);
-            $output->writeln('<info>Email sent to ' . $to . '</info>');
+            $output->writeln('<info>Email sent to '.$to.'</info>');
+
             return;
         }
     }

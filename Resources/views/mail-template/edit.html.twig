@@ -52,9 +52,11 @@
     <br>
     <h3>{{ 'title.original-content' | trans }}</h3>
     <br>
-    <strong>{{ mail.originalSubject }}</strong>
+    <a href="#original-subject" class="js-copy float-right" data-clipboard-target="#original-subject">copy</a>
+    <strong id="original-subject">{{ mail.originalSubject }}</strong>
     <hr>
-    <pre><code>{{ mail.originalContent }}</code></pre>
+    <a href="#original-content" class="js-copy float-right" data-clipboard-target="#original-content">copy</a>
+    <pre><code id="original-content">{{ mail.originalContent }}</code></pre>
     <script>
 
     document.addEventListener('DOMContentLoaded', function () {

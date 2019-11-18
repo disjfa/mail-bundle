@@ -76,7 +76,7 @@ And done! Mail sent. Now it is time to setup emails and make more in your applic
 
 Use the bundle. Check what the bundle does. Fork. Make your own. This is here just to make live easier for us all. Make something beautiful.
 
-[packagist-badge]: https://img.shields.io/packagist/php-v/disjfa/mail-bundle
+[packagist-badge]: https://img.shields.io/packagist/v/disjfa/mail-bundle
 [packagist]: https://packagist.org/packages/disjfa/mail-bundle
 [license]: https://github.com/disjfa/mail-bundle/blob/master/LICENSE
 [license-badge]: https://img.shields.io/github/license/disjfa/mail-bundle.svg

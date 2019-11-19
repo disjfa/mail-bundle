@@ -9,7 +9,7 @@
 
 ### Why is this bundle here
 
-...
+In every project i need to build a way to send emails. Now symfony has released the [Mime Component](https://symfony.com/doc/current/components/mime.html) and the [Mailer Component](https://symfony.com/doc/current/components/mailer.html). Lets see what we can do to make live easier for us people who send emails.
 
 ### Instalation
 
@@ -70,7 +70,35 @@ And done! Mail sent. Now it is time to setup emails and make more in your applic
 
 ### Extend the templates
 
+You can manage the templates as is. But you probably want to integrate the files in your own system. Just create a file in your application in `templates/bundles/DisjfaMailBundle/layout.html.twig` and add a body block.
+
+```twig
+<!doctype html>
+<html>
+<head>
 ...
+</head>
+<body>
+{% block body %}
+
+{% endblock %}
+</body>
+</html>
+```
+
+And you are good to go. Or you can just [extend](https://twig.symfony.com/doc/2.x/tags/extends.html) your own template. Just make sure you use a block named `body`. You can also just extend the rest of the files as you wish. Just name them like we set up the files. 
+
+### One thing missing
+
+One thing missing is sending the emails. We do not have to set up the mailing bit of the application. You can do that yourself. Check the [transports](https://symfony.com/doc/current/components/mailer.html#transport) on how to set up your own mailer as you wish.
+
+### And that is about it.
+
+Now you can make your own emails. Set them up. Create a method to send emails. And when you have set up your favorite mailer you can send them!
+
+### Help
+
+This bundle is a nice way to extend your workflow. But it can be improved. If you have any ideas or solutions to do so don't be shy and tell us! We can only make stuff better in the end.
 
 ### Enjoy!
 

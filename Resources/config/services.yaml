@@ -15,4 +15,7 @@ services:
         arguments:
             - !tagged disjfa.mail
 
-
+    Disjfa\MailBundle\Menu\Admin\MailMenuListener:
+        autowire: true
+        tags:
+            - { name: 'kernel.event_listener', event: 'admin.menu_configure', method: 'onMenuConfigure' }

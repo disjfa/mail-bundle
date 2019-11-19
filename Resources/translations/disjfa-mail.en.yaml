@@ -11,6 +11,7 @@ text:
 
 title:
     mail-template: 'Mail template'
+    mail-templates: 'Mail templates'
     mail-parameters: 'Mail parameters'
     original-content: 'Original content'
     disjfa-mail: 'disjfa mail'

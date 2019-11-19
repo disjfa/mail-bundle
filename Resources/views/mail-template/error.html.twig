@@ -7,8 +7,10 @@
 {% endblock %}
 
 {% block body %}
-    <h4>{{ 'title.error' | trans }}</h4>
-    <div class="alert alert-danger">
-        {{ error.message }}
+    <div class="container">
+        <h4>{{ 'title.error' | trans }}</h4>
+        <div class="alert alert-danger">
+            {{ error.message }}
+        </div>
     </div>
 {% endblock %}

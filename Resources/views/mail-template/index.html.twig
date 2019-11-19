@@ -2,31 +2,39 @@
 
 {% trans_default_domain 'disjfa-mail' %}
 
+{% block content_title %}
+    {{ 'title.mail-templates' | trans }}
+{% endblock %}
+
 {% block body %}
-    <table class="table">
-        <thead>
-        <tr>
-            <th>{{ 'table.name' | trans }}</th>
-            <th>{{ 'table.subject' | trans }}</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for mail in mailCollection %}
-            <tr>
-                <td>{{ mail.name }}</td>
-                <td>{{ mail.subject }}</td>
-                <td>
-                    <a href="{{ path('disjfa_mail_template_edit', {'name': mail.name }) }}">
-                        {{ 'button.edit' | trans }}
-                    </a>
-                    -
-                    <a href="{{ path('disjfa_mail_template_preview', {'name': mail.name }) }}" target="_blank">
-                        {{ 'button.preview' | trans }}
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>{{ 'table.name' | trans }}</th>
+                    <th>{{ 'table.subject' | trans }}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for mail in mailCollection %}
+                    <tr>
+                        <td>{{ mail.name }}</td>
+                        <td>{{ mail.subject }}</td>
+                        <td>
+                            <a href="{{ path('disjfa_mail_template_edit', {'name': mail.name }) }}">
+                                {{ 'button.edit' | trans }}
+                            </a>
+                            -
+                            <a href="{{ path('disjfa_mail_template_preview', {'name': mail.name }) }}" target="_blank">
+                                {{ 'button.preview' | trans }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

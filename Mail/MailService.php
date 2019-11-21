@@ -28,15 +28,20 @@ class MailService
      * @var EventDispatcherInterface
      */
     private $eventDispatcher;
+    /**
+     * @var string
+     */
+    private $disjfaMailFrom;
 
     /**
      * MailService constructor.
      */
-    public function __construct(Environment $twig, MailerInterface $mailer, EventDispatcherInterface $eventDispatcher)
+    public function __construct(Environment $twig, MailerInterface $mailer, EventDispatcherInterface $eventDispatcher, string $disjfaMailFrom)
     {
         $this->twig = $twig;
         $this->mailer = $mailer;
         $this->eventDispatcher = $eventDispatcher;
+        $this->disjfaMailFrom = $disjfaMailFrom;
     }
 
     /**
@@ -57,7 +62,7 @@ class MailService
         $subject = $this->twig->render($subjectTemplate, $parameters);
 
         $email = new Email();
-        $email->from('disjfa@disjfa.nl');
+        $email->from($this->disjfaMailFrom);
         $email->subject($subject);
         $email->html($this->twig->render('@DisjfaMail/mail/email.html.twig', [
             'content' => $content,

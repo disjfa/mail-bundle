@@ -10,6 +10,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class PreviewMail extends Command
 {
@@ -52,10 +56,10 @@ class PreviewMail extends Command
     /**
      * @return int|void|null
      *
-     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws TransportExceptionInterface
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -84,7 +88,7 @@ class PreviewMail extends Command
         if ('preview' === $todo) {
             $output->write($mail->getContent());
 
-            return;
+            return 0;
         }
 
         $mailParameters = $mail->getParameters();
@@ -103,7 +107,7 @@ class PreviewMail extends Command
             $email = $this->mailService->create($mail, $parameters);
             $output->write($email->getHtmlBody());
 
-            return;
+            return 0;
         }
 
         if ('send email' === $todo) {
@@ -113,7 +117,7 @@ class PreviewMail extends Command
             $this->mailService->send($mail, $parameters, $to);
             $output->writeln('<info>Email sent to '.$to.'</info>');
 
-            return;
+            return 0;
         }
     }
 }

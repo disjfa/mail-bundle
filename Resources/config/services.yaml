@@ -2,6 +2,8 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
+        bind:
+            $disjfaMailFrom: '%env(string:DISJFA_MAIL_FROM)%'
 
     Disjfa\MailBundle\:
         resource: './../../*'
